@@ -1,5 +1,6 @@
 package com.julher625.deliveryControlSystem.delivery;
 
+import com.julher625.deliveryControlSystem.user.Role;
 import com.julher625.deliveryControlSystem.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,11 @@ public class DeliveryTime {
     private String initialPhoto;
     private String finalPhoto;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private User user;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
 }
