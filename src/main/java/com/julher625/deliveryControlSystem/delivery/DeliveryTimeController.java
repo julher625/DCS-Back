@@ -1,5 +1,8 @@
 package com.julher625.deliveryControlSystem.delivery;
 
+import com.julher625.deliveryControlSystem.branch.BranchService;
+import com.julher625.deliveryControlSystem.branch.models.Branch;
+import com.julher625.deliveryControlSystem.branch.models.BranchRequest;
 import com.julher625.deliveryControlSystem.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,10 +19,16 @@ import org.springframework.web.bind.annotation.*;
 public class DeliveryTimeController {
 
     private final DeliveryTimeService deliveryTimeService;
+    private final BranchService branchService;
 
     @PostMapping("/start")
-    public ResponseEntity<DeliveryTime> start(){
-        DeliveryTime deliveryTime = deliveryTimeService.start();
+    public ResponseEntity<DeliveryTime> start(
+            @RequestBody DeliveryTimeRequest request
+    ){
+        Branch branch =  branchService.findByName(request.getBranchName());
+        DeliveryTime deliveryTime = deliveryTimeService.start(branch);
+
+
         if (deliveryTime == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

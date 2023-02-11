@@ -1,5 +1,6 @@
 package com.julher625.deliveryControlSystem.delivery;
 
+import com.julher625.deliveryControlSystem.branch.models.Branch;
 import com.julher625.deliveryControlSystem.user.User;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class DeliveryTimeService {
 
     private final DeliveryTimeRepository deliveryTimeRepository;
 
-    public DeliveryTime start(){
+    public DeliveryTime start(Branch branch){
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         DeliveryTime deliveryTime = DeliveryTime.builder()
                 .startDate(new Date())
@@ -24,6 +25,7 @@ public class DeliveryTimeService {
                         user
                 )
                 .status(Status.OPEN)
+                .branch(branch)
                 .build();
 
         if (deliveryTimeRepository.countByFinalDate(null) != 0){
@@ -48,6 +50,6 @@ public class DeliveryTimeService {
 
 
     public Page<DeliveryTime> getTimes(PageRequest pageRequest) {
-        return  deliveryTimeRepository.findAll(pageRequest);
+        return  deliveryTimeRepository.findAllByOrderByIdDesc(pageRequest);
     }
 }

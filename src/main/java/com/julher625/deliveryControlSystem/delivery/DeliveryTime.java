@@ -1,6 +1,6 @@
 package com.julher625.deliveryControlSystem.delivery;
 
-import com.julher625.deliveryControlSystem.user.Role;
+import com.julher625.deliveryControlSystem.branch.models.Branch;
 import com.julher625.deliveryControlSystem.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -32,6 +32,9 @@ public class DeliveryTime {
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Branch branch;
 
 
 }

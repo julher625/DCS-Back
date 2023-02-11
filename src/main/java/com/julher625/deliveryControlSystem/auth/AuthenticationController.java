@@ -1,5 +1,8 @@
 package com.julher625.deliveryControlSystem.auth;
 
+import com.julher625.deliveryControlSystem.auth.models.AuthenticationRequest;
+import com.julher625.deliveryControlSystem.auth.models.AuthenticationResponse;
+import com.julher625.deliveryControlSystem.auth.models.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

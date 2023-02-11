@@ -1,4 +1,4 @@
-package com.julher625.deliveryControlSystem.auth;
+package com.julher625.deliveryControlSystem.delivery;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationRequest {
+public class DeliveryTimeRequest {
 
-    private Integer documentId;
-    private String password;
+    String branchName;
+
 }
