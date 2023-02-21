@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/branch")
 @RequiredArgsConstructor
@@ -13,11 +15,15 @@ public class BranchController {
 
     private final BranchService branchService;
 
-    @PostMapping("/new")
+    @PostMapping
     public ResponseEntity<Branch> saveBranch(
             @RequestBody BranchRequest request
     ){
-        System.out.println(request);
         return ResponseEntity.ok(branchService.save(request));
+    }
+
+    @GetMapping
+    public  ResponseEntity<List<Branch>> listBranches(){
+        return ResponseEntity.ok(branchService.listBranches());
     }
 }

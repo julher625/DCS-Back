@@ -5,6 +5,9 @@ import com.julher625.deliveryControlSystem.branch.models.BranchRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class BranchService {
@@ -18,6 +21,10 @@ public class BranchService {
                 .build();
 
         return branchRepository.save(branch);
+    }
+
+    public List<Branch> listBranches(){
+        return branchRepository.findAll();
     }
 
     public Branch findByName(String name){
