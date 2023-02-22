@@ -1,4 +1,4 @@
-package com.julher625.deliveryControlSystem.auth.models;
+package com.julher625.deliveryControlSystem.menu;
 
 import com.julher625.deliveryControlSystem.user.Role;
 import lombok.AllArgsConstructor;
@@ -10,12 +10,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
-
-    private String firstname;
-    private String lastname;
-    private Integer documentId;
-    private String email;
-    private String password;
+public class MenuRequest {
+    private String name;
+    private String displayName;
+    private String path;
     private String role;
 }

@@ -1,4 +1,4 @@
-package com.julher625.deliveryControlSystem.delivery;
+package com.julher625.deliveryControlSystem.delivery.models;
 
 import com.julher625.deliveryControlSystem.branch.models.Branch;
 import com.julher625.deliveryControlSystem.user.User;
@@ -24,8 +24,12 @@ public class DeliveryTime {
 
     private Date startDate;
     private Date finalDate;
-    private String initialPhoto;
-    private String finalPhoto;
+
+    @Column(length = 1000000)
+    private byte[] initialPhoto;
+
+    @Column(length = 1000000)
+    private byte[] finalPhoto;
 
     @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private User user;

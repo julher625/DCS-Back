@@ -1,5 +1,6 @@
-package com.julher625.deliveryControlSystem.branch.models;
+package com.julher625.deliveryControlSystem.menu;
 
+import com.julher625.deliveryControlSystem.user.Role;
 import com.julher625.deliveryControlSystem.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,16 +13,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "branches")
-public class Branch {
+@Table(name = "menus")
+public class Menu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+
     private Integer id;
-
     String name;
-    //TODO: Check if can use User as an administrator that can check the deliveries or his branch
-    @ManyToOne(optional = false, cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    User user;
+    String displayName;
+    String path;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

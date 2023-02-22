@@ -4,7 +4,10 @@ import com.julher625.deliveryControlSystem.branch.models.Branch;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface BranchRepository extends JpaRepository<Branch,Integer> {
     Branch findFirst1ByNameOrderByIdAsc(String name);
+    List<Branch> findAllByUserId(Integer userId);
 }

@@ -22,13 +22,20 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        Role role = Role.valueOf(request.getRole());
+        System.out.println(role);
+        if (role == null) {
+            role = Role.DELIVERY;
+        }
+
         User user = User.builder()
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
                 .documentId(request.getDocumentId())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.DELIVERY)
+                .role(role)
                 .build();
         userRepository.save(user);
 

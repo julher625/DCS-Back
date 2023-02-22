@@ -1,6 +1,7 @@
 package com.julher625.deliveryControlSystem.delivery;
 
 
+import com.julher625.deliveryControlSystem.delivery.models.DeliveryTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +17,8 @@ public interface DeliveryTimeRepository extends JpaRepository<DeliveryTime, Long
     Optional<DeliveryTime> findFirst1ByUserIdOrderByIdDesc(Integer userId);
 
 
-    Page<DeliveryTime> findAllByOrderByIdDesc(Pageable pageable);
+    Page<DeliveryTime> findAllByUserIdOrderByIdDesc(Integer id, Pageable pageable);
+
+    Page<DeliveryTime> findAllByBranchIdOrderByIdDesc(Integer id, Pageable pageable);
+
 }
