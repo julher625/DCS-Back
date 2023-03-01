@@ -75,5 +75,9 @@ public class DeliveryTimeController {
         return ResponseEntity.ok(mapped);
     }
 
+    @GetMapping("/started")
+    public ResponseEntity<Boolean> started(){
+        return  ResponseEntity.ok(deliveryTimeService.deliveryTimeIsStarted());
+    }
 
 }

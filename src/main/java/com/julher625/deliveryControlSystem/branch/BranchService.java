@@ -2,6 +2,7 @@ package com.julher625.deliveryControlSystem.branch;
 
 import com.julher625.deliveryControlSystem.branch.models.Branch;
 import com.julher625.deliveryControlSystem.branch.models.BranchRequest;
+import com.julher625.deliveryControlSystem.branch.models.BranchResponse;
 import com.julher625.deliveryControlSystem.models.SoloNameRequest;
 import com.julher625.deliveryControlSystem.user.Role;
 import com.julher625.deliveryControlSystem.user.User;
@@ -40,6 +41,10 @@ public class BranchService {
 
     public Branch findByName(String name){
         return branchRepository.findFirst1ByNameOrderByIdAsc(name);
+    }
+
+    public Branch findByUserId(Integer userId){
+        return  branchRepository.findFirst1ByUserIdOrderByIdAsc(userId);
     }
 
 

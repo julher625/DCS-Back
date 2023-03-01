@@ -32,9 +32,16 @@ public class DeliveryTimeService {
 
     public DeliveryTime start(DeliveryTimeRequest request){
 
+        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (deliveryTimeIsStarted()){
+            System.out.println(deliveryTimeRepository.findFirst1ByFinalDateAndUserId(null, user.getId()));
+            return null;
+        }
+
         Branch branch =  branchService.findByName(request.getBranchName());
         byte[] initialPhoto = request.getImage().getBytes();
-        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
 
         DeliveryTime deliveryTime = DeliveryTime.builder()
                 .startDate(new Date())
@@ -47,10 +54,7 @@ public class DeliveryTimeService {
                 .build();
 
 
-        if (deliveryTimeRepository.countByFinalDate(null) != 0){
-            System.out.println(deliveryTimeRepository.countByFinalDate(null));
-            return null;
-        }
+
         deliveryTimeRepository.save(deliveryTime);
         return deliveryTime;
     }
@@ -65,6 +69,10 @@ public class DeliveryTimeService {
         return deliveryTime;
     }
 
+    public Boolean deliveryTimeIsStarted(){
+        User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return deliveryTimeRepository.findFirst1ByFinalDateAndUserId(null, user.getId()).isPresent();
+    }
 
     public Page<DeliveryTime> getTimes(PageRequest pageRequest, Integer branchId) {
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -76,7 +84,10 @@ public class DeliveryTimeService {
             });
             return deliveryTimes;
         }else {
-            return deliveryTimeRepository.findAllByBranchIdOrderByIdDesc(branchId, pageRequest);
+
+            Branch branch = branchService.findByUserId(user.getId());
+
+            return deliveryTimeRepository.findAllByBranchIdOrderByIdDesc(branch.getId(), pageRequest);
         }
 
 

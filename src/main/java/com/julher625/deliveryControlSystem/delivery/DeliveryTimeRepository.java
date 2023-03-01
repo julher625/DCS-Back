@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface DeliveryTimeRepository extends JpaRepository<DeliveryTime, Long> {
 
-    Integer countByFinalDate(Date date);
+    Optional<DeliveryTime> findFirst1ByFinalDateAndUserId(Date date,Integer userId);
     Optional<DeliveryTime> findFirst1ByUserIdOrderByIdDesc(Integer userId);
 
 
