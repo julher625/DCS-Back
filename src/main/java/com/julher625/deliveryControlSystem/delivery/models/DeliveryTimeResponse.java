@@ -1,7 +1,9 @@
 package com.julher625.deliveryControlSystem.delivery.models;
 
 import com.julher625.deliveryControlSystem.branch.models.Branch;
+import com.julher625.deliveryControlSystem.branch.models.BranchResponse;
 import com.julher625.deliveryControlSystem.user.User;
+import com.julher625.deliveryControlSystem.user.UserResponse;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +21,7 @@ public class DeliveryTimeResponse {
     private Date finalDate;
     private String initialPhoto;
     private String finalPhoto;
-    private User user;
+    private UserResponse user;
     private Status status;
-    private Branch branch;
+    private BranchResponse branch;
 }

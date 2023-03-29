@@ -6,13 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @SpringBootApplication
 public class DeliveryControlSystemApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DeliveryControlSystemApplication.class, args);
 	}
-
 
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
@@ -21,7 +21,9 @@ public class DeliveryControlSystemApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/api/**")
-						.allowedOrigins("http://localhost:4200");
+						.allowedOrigins("http://localhost:4200")
+						.allowedMethods("*")
+						.allowCredentials(true);
 			}
 		};
 	}

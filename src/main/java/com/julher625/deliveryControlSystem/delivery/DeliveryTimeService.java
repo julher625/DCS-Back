@@ -5,6 +5,7 @@ import com.julher625.deliveryControlSystem.branch.models.Branch;
 import com.julher625.deliveryControlSystem.delivery.models.DeliveryTime;
 import com.julher625.deliveryControlSystem.delivery.models.DeliveryTimeRequest;
 import com.julher625.deliveryControlSystem.delivery.models.Status;
+import com.julher625.deliveryControlSystem.delivery.models.StopDeliveryTimeRequest;
 import com.julher625.deliveryControlSystem.user.Role;
 import com.julher625.deliveryControlSystem.user.User;
 
@@ -59,11 +60,14 @@ public class DeliveryTimeService {
         return deliveryTime;
     }
 
-    public DeliveryTime stop() {
+    public DeliveryTime stop(StopDeliveryTimeRequest request) {
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         DeliveryTime deliveryTime = deliveryTimeRepository.findFirst1ByUserIdOrderByIdDesc(user.getId())
                 .orElseThrow();
         deliveryTime.setFinalDate( new Date());
+
+        byte[] finalPhoto = request.getImage().getBytes();
+        deliveryTime.setFinalPhoto(finalPhoto);
         deliveryTime.setStatus(Status.CLOSED);
         deliveryTimeRepository.save(deliveryTime);
         return deliveryTime;
@@ -71,6 +75,8 @@ public class DeliveryTimeService {
 
     public Boolean deliveryTimeIsStarted(){
         User user= (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        //System.out.println(deliveryTimeRepository.findFirst1ByFinalDateAndUserId(null, user.getId()));
         return deliveryTimeRepository.findFirst1ByFinalDateAndUserId(null, user.getId()).isPresent();
     }
 
@@ -79,9 +85,6 @@ public class DeliveryTimeService {
 
         if (user.getRole() == Role.DELIVERY){
             Page<DeliveryTime> deliveryTimes =deliveryTimeRepository.findAllByUserIdOrderByIdDesc(user.getId(),pageRequest);
-            deliveryTimes.forEach(deliveryTime -> {
-                System.out.println(deliveryTime.getInitialPhoto());
-            });
             return deliveryTimes;
         }else {
 

@@ -12,4 +12,9 @@ import lombok.NoArgsConstructor;
 public class BranchResponse {
     private Integer id;
     String name;
+
+    public BranchResponse(Branch branch) {
+        this.id = branch.getId();
+        this.name = branch.getName();
+    }
 }
